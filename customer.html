@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP GLOVE - Customer PIC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">TOP GLOVE</div>
+            <div class="system-name">QA TGEC QREX - Customer PIC</div>
+        </div>
+        <button class="header-logout" id="header-logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+    </div>
+    
+    <div class="main-container">
+        <nav class="navbar">
+            <button class="nav-button" id="nav-dashboard"><i class="fas fa-home"></i><span class="button-text">Dashboard</span></button>
+            <button class="nav-button" id="nav-incoming"><i class="fas fa-clipboard-check"></i><span class="button-text">Incoming Inspection</span></button>
+            <button class="nav-button" id="nav-inprocess"><i class="fas fa-cogs"></i><span class="button-text">In Process Inspection</span></button>
+            <button class="nav-button" id="nav-outgoing"><i class="fas fa-shipping-fast"></i><span class="button-text">Outgoing Inspection</span></button>
+            <button class="nav-button active" id="nav-customer"><i class="fas fa-user-tie"></i><span class="button-text">Customer PIC</span></button>
+            <button class="nav-button" id="nav-product"><i class="fas fa-file-alt"></i><span class="button-text">Product Specification</span></button>
+            <button class="nav-button" id="nav-defect"><i class="fas fa-exclamation-triangle"></i><span class="button-text">Defect List</span></button>
+        </nav>
+        
+        <div class="content-area">
+            <div class="content-container">
+                <div class="filter-header">
+                    <h2 class="page-title"><i class="fas fa-user-tie"></i><span>Customer PIC List</span></h2>
+                    <button class="btn-primary"><i class="fas fa-plus"></i><span>Add Customer</span></button>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">Search Customer</label>
+                            <input type="text" class="filter-input" id="search-customer" placeholder="Enter name...">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn-small" id="view-all-btn"><i class="fas fa-eye"></i><span>View All</span></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width:60px">ID</th>
+                                <th style="width:120px">Customer Name</th>
+                                <th style="width:120px">PIC Name</th>
+                                <th style="width:100px">Phone</th>
+                                <th style="width:150px">Email</th>
+                                <th style="width:80px">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="cell-id">C001</td><td>Customer A</td><td>John Doe</td><td>+60-123456789</td><td>john@customera.com</td><td><span class="status-pass">Active</span></td></tr>
+                            <tr><td class="cell-id">C002</td><td>Customer B</td><td>Jane Smith</td><td>+60-987654321</td><td>jane@customerb.com</td><td><span class="status-pass">Active</span></td></tr>
+                            <tr><td class="cell-id">C003</td><td>Customer C</td><td>Bob Wilson</td><td>+60-555666777</td><td>bob@customerc.com</td><td><span class="status-pass">Active</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">Showing 3 records • Total: 3 records • Updated: <span id="update-time"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavigation('nav-customer');
+            document.getElementById('update-time').textContent = DateUtil.getCurrentTime();
+        });
+    </script>
+</body>
+</html>

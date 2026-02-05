@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP GLOVE - Incoming Inspection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/inspection.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">TOP GLOVE</div>
+            <div class="system-name">QA TGEC QREX - Incoming Inspection</div>
+        </div>
+        <button class="header-logout" id="header-logout">
+            <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+        </button>
+    </div>
+    
+    <div class="main-container">
+        <nav class="navbar">
+            <button class="nav-button" id="nav-dashboard"><i class="fas fa-home"></i><span class="button-text">Dashboard</span></button>
+            <button class="nav-button active" id="nav-incoming"><i class="fas fa-clipboard-check"></i><span class="button-text">Incoming Inspection</span></button>
+            <button class="nav-button" id="nav-inprocess"><i class="fas fa-cogs"></i><span class="button-text">In Process Inspection</span></button>
+            <button class="nav-button" id="nav-outgoing"><i class="fas fa-shipping-fast"></i><span class="button-text">Outgoing Inspection</span></button>
+            <button class="nav-button" id="nav-customer"><i class="fas fa-user-tie"></i><span class="button-text">Customer PIC</span></button>
+            <button class="nav-button" id="nav-product"><i class="fas fa-file-alt"></i><span class="button-text">Product Specification</span></button>
+            <button class="nav-button" id="nav-defect"><i class="fas fa-exclamation-triangle"></i><span class="button-text">Defect List</span></button>
+        </nav>
+        
+        <div class="content-area">
+            <div class="content-container">
+                <div class="filter-header">
+                    <h2 class="page-title"><i class="fas fa-clipboard-check"></i><span>Incoming Inspection Records</span></h2>
+                    <button class="btn-primary" id="new-inspection-btn"><i class="fas fa-plus"></i><span>New Inspection</span></button>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label class="filter-label">Receive Date</label>
+                            <input type="date" class="filter-input" id="receive-date">
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Product Type</label>
+                            <select class="filter-input" id="product-type">
+                                <option value="">All</option>
+                                <option value="bearing">Bearing</option>
+                                <option value="brush">Brush</option>
+                            </select>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn-small" id="view-all-btn"><i class="fas fa-eye"></i><span>View All</span></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width:80px">ID</th>
+                                <th style="width:80px">Receive Date</th>
+                                <th style="width:80px">Inspection Date</th>
+                                <th style="width:100px">Product Code</th>
+                                <th style="width:90px">Product Type</th>
+                                <th style="width:60px">Sampling</th>
+                                <th style="width:85px">PO Number</th>
+                                <th style="width:85px">DO Number</th>
+                                <th style="width:100px">Supplier</th>
+                                <th style="width:70px">Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="cell-id">INC000001</td><td>30-01-26</td><td>31-01-26</td><td><span class="cell-badge">BRG-2401-SS</span></td><td>Bearing</td><td>ANSI</td><td>PO-2601001</td><td>DO-2601001</td><td>Precision Ltd</td><td>12,500</td></tr>
+                            <tr><td class="cell-id">INC000002</td><td>30-01-26</td><td>31-01-26</td><td><span class="cell-badge">BRH-002-NYL</span></td><td>Brush</td><td>ISO</td><td>PO-2601002</td><td>DO-2601002</td><td>BrushMaster</td><td>8,000</td></tr>
+                            <tr><td class="cell-id">INC000003</td><td>29-01-26</td><td>30-01-26</td><td><span class="cell-badge">BRG-3510-AL</span></td><td>Bearing</td><td>ANSI</td><td>PO-2601003</td><td>DO-2601003</td><td>BearingTech</td><td>10,000</td></tr>
+                            <tr><td class="cell-id">INC000004</td><td>29-01-26</td><td>30-01-26</td><td><span class="cell-badge">BRH-015-POL</span></td><td>Brush</td><td>ISO</td><td>PO-2601004</td><td>DO-2601004</td><td>PolyBrush</td><td>12,500</td></tr>
+                            <tr><td class="cell-id">INC000005</td><td>28-01-26</td><td>29-01-26</td><td><span class="cell-badge">BRG-5002-CR</span></td><td>Bearing</td><td>ANSI</td><td>PO-2601005</td><td>DO-2601005</td><td>Precision Ltd</td><td>15,000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">Showing 5 records • Total: 5 records • Updated: 14:30</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Inspection Modal -->
+    <div class="modal-overlay" id="inspection-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-clipboard-check"></i> New Incoming Inspection</h2>
+                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- (A) Incoming Details -->
+                <div class="form-section">
+                    <h3 class="section-title">(A) Incoming Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label class="form-label">Date Received</label><input type="date" class="form-control" id="date-received"></div>
+                        <div class="form-group"><label class="form-label">Date Inspection</label><input type="date" class="form-control" id="date-inspection"></div>
+                        <div class="form-group"><label class="form-label">Sampling Plan</label><input type="text" class="form-control" value="S2 AQL 1.5" readonly></div>
+                        <div class="form-group"><label class="form-label">Sampling Size</label><input type="number" class="form-control" id="sampling-size"></div>
+                        <div class="form-group"><label class="form-label">Supplier Name</label><select class="form-control" id="supplier-name"><option value="">Select</option><option>HCI</option><option>HCE</option></select></div>
+                        <div class="form-group"><label class="form-label">Type of Product</label><select class="form-control" id="product-type-select"><option value="">Select</option><option value="Bearing">Bearing</option><option value="Brush">Brush</option></select></div>
+                        <div class="form-group"><label class="form-label">Quantity Received</label><input type="number" class="form-control" id="quantity-received"></div>
+                        <div class="form-group"><label class="form-label">Factory</label><select class="form-control" id="factory"><option value="">Select</option><option>F13</option><option>F12</option><option>F11</option></select></div>
+                        <div class="form-group"><label class="form-label">PO Number</label><input type="text" class="form-control" id="po-number"></div>
+                        <div class="form-group"><label class="form-label">DO Number</label><input type="text" class="form-control" id="do-number"></div>
+                        <div class="form-group"><label class="form-label">Inspection Court</label><select class="form-control" id="inspection-court"><option value="">Select</option><option>1</option><option>2</option><option>3</option></select></div>
+                    </div>
+                </div>
+                
+                <!-- (B) Product Details -->
+                <div class="form-section">
+                    <h3 class="section-title">(B) Product Details</h3>
+                    <table class="product-table">
+                        <thead><tr><th>ID</th><th>Group</th><th>Type</th><th>Product Code</th><th>Product Name</th><th>Material</th></tr></thead>
+                        <tbody><tr>
+                            <td><input type="text" class="product-input" id="product-id" readonly></td>
+                            <td><input type="text" class="product-input" id="product-group" readonly></td>
+                            <td><input type="text" class="product-input" id="product-type-detail" readonly></td>
+                            <td><input type="text" class="product-input" id="product-code" readonly></td>
+                            <td><input type="text" class="product-input" id="product-name" readonly></td>
+                            <td><input type="text" class="product-input" id="product-material" readonly></td>
+                        </tr></tbody>
+                    </table>
+                </div>
+                
+                <!-- (C) Physical Dimension -->
+                <div class="form-section">
+                    <h3 class="section-title">(C) Inspection Result: Physical Dimension</h3>
+                    <table class="dimension-table hidden" id="dimension-table">
+                        <thead><tr><th>Parameter</th><th>Standard Low/High</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>Disposition</th></tr></thead>
+                        <tbody id="dimension-tbody"></tbody>
+                    </table>
+                </div>
+                
+                <!-- (C.ii) Heating Test - Bearing Only -->
+                <div class="form-section hidden" id="heating-section">
+                    <h3 class="section-title">(C.ii) Inspection Result: Heating Test</h3>
+                    <table class="test-table">
+                        <thead><tr><th>Test Criteria</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>Remark</th></tr></thead>
+                        <tbody id="heating-tbody"></tbody>
+                    </table>
+                    <div class="result-row" id="heating-result">
+                        <span class="result-label">Result:</span>
+                        <div class="result-buttons">
+                            <button class="result-btn na active">N/A</button>
+                            <button class="result-btn pass">PASS</button>
+                            <button class="result-btn fail">FAIL</button>
+                        </div>
+                        <span class="method-text">(Method: Heat at 200°C, 22 Hours)</span>
+                    </div>
+                </div>
+                
+                <!-- (C.iii) Evaporation Test - Bearing Only -->
+                <div class="form-section hidden" id="evaporation-section">
+                    <h3 class="section-title">(C.iii) Inspection Result: Evaporation Grease Test</h3>
+                    <table class="test-table">
+                        <thead><tr><th>Test Criteria</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>Remark</th></tr></thead>
+                        <tbody id="evaporation-tbody"></tbody>
+                    </table>
+                    <div class="result-row" id="evaporation-result">
+                        <span class="result-label">Result:</span>
+                        <div class="result-buttons">
+                            <button class="result-btn na active">N/A</button>
+                            <button class="result-btn pass">PASS</button>
+                            <button class="result-btn fail">FAIL</button>
+                        </div>
+                        <span class="method-text">(Standard: &lt;4%)</span>
+                    </div>
+                </div>
+                
+                <!-- (D) Defect Finding -->
+                <div class="form-section">
+                    <div class="defect-header">
+                        <span class="defect-title">(D) Defect Finding: Visual Inspection</span>
+                        <button class="btn-add-defect" id="add-defect-btn"><i class="fas fa-plus"></i><span>Add Defect</span></button>
+                    </div>
+                    <div class="defect-display hidden" id="defect-display"></div>
+                </div>
+                
+                <!-- (E) Final Disposition -->
+                <div class="form-section">
+                    <h3 class="section-title">(E) Final Disposition</h3>
+                    <div class="disposition-container">
+                        <div class="toggle-container">
+                            <label class="toggle-switch"><input type="checkbox" id="disposition-toggle"><span class="toggle-slider"></span></label>
+                            <span class="toggle-status fail" id="toggle-status">FAIL</span>
+                        </div>
+                        <div class="remark-container">
+                            <span class="toggle-label">Remark:</span>
+                            <textarea class="remark-input" id="remark" placeholder="Enter remarks..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- (F) Verification -->
+                <div class="form-section">
+                    <h3 class="section-title">(F) Verification</h3>
+                    <div class="verification-grid">
+                        <div class="verification-group">
+                            <h4>Inspected By</h4>
+                            <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-control" placeholder="Full name"></div>
+                            <div class="form-group"><label class="form-label">Position</label><input type="text" class="form-control" placeholder="Position"></div>
+                            <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-control"></div>
+                        </div>
+                        <div class="verification-group">
+                            <h4>Checked By</h4>
+                            <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-control" placeholder="Full name"></div>
+                            <div class="form-group"><label class="form-label">Position</label><input type="text" class="form-control" placeholder="Position"></div>
+                            <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-control"></div>
+                        </div>
+                        <div class="verification-group">
+                            <h4>Verified By</h4>
+                            <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-control" placeholder="Full name"></div>
+                            <div class="form-group"><label class="form-label">Position</label><input type="text" class="form-control" placeholder="Position"></div>
+                            <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-control"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn-secondary" id="modal-cancel">Cancel</button>
+                <button class="btn-primary" id="modal-save">Save Inspection</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product Selection Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content" style="max-width:700px">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-cog"></i> Select Product</h2>
+                <button class="modal-close" id="product-modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <table class="product-select-table">
+                    <thead><tr><th>Type</th><th>Code</th><th>Material</th><th>Description</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="product-modal-cancel">Cancel</button>
+                <button class="btn-primary" id="product-modal-save">Select Product</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Defect Modal -->
+    <div class="modal-overlay" id="defect-modal">
+        <div class="modal-content" style="max-width:500px">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Add Defect</h2>
+                <button class="modal-close" id="defect-modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="defect-form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Defect Name</label>
+                        <select class="form-control" id="defect-name"><option value="">Select</option><option>Calar</option><option>Kemek</option><option>Crack</option><option>Scratch</option><option>Dent</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select class="form-control" id="defect-category"><option value="">Select</option><option>Minor</option><option>Major</option></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Affected Quantity</label>
+                        <input type="number" class="form-control" id="defect-quantity" placeholder="Enter quantity">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Remark</label>
+                        <input type="text" class="form-control" id="defect-remark" placeholder="Enter remark">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Defect Picture</label>
+                        <input type="file" class="form-control" id="defect-picture" accept="image/*">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="defect-modal-cancel">Cancel</button>
+                <button class="btn-primary" id="defect-modal-save">Save Defect</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/incoming.js"></script>
+</body>
+</html>
