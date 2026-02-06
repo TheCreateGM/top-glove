@@ -1,0 +1,61 @@
+{
+  "suppliers": [
+    {
+      "id": "S001",
+      "code": "HCI",
+      "name": "HCI Manufacturing",
+      "contact": "David Tan",
+      "phone": "+60-333444555",
+      "email": "david@hci.com",
+      "status": "Active"
+    },
+    {
+      "id": "S002",
+      "code": "HCE",
+      "name": "HCE Industries",
+      "contact": "Sarah Lim",
+      "phone": "+60-666777888",
+      "email": "sarah@hce.com",
+      "status": "Active"
+    },
+    {
+      "id": "S003",
+      "code": "PREC",
+      "name": "Precision Ltd",
+      "contact": "Michael Wong",
+      "phone": "+60-999000111",
+      "email": "michael@precisionltd.com",
+      "status": "Active"
+    },
+    {
+      "id": "S004",
+      "code": "BRSH",
+      "name": "BrushMaster",
+      "contact": "Linda Chen",
+      "phone": "+60-222333444",
+      "email": "linda@brushmaster.com",
+      "status": "Active"
+    },
+    {
+      "id": "S005",
+      "code": "BRTC",
+      "name": "BearingTech",
+      "contact": "James Lee",
+      "phone": "+60-555666777",
+      "email": "james@bearingtech.com",
+      "status": "Active"
+    },
+    {
+      "id": "S006",
+      "code": "POLY",
+      "name": "PolyBrush",
+      "contact": "Anna Ng",
+      "phone": "+60-888999000",
+      "email": "anna@polybrush.com",
+      "status": "Active"
+    }
+  ],
+  "factories": ["F11", "F12", "F13"],
+  "samplingPlans": ["S2 AQL 1.5", "S3 AQL 2.5", "S4 AQL 4.0"],
+  "inspectionCourts": ["1", "2", "3"]
+}

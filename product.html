@@ -62,11 +62,8 @@
                                 <th style="width:80px">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr><td class="cell-id">00001</td><td>Bearing</td><td><span class="cell-badge">BRVTZFH28KN</span></td><td>Bearing VTZ 6202HS C3FH28KN</td><td>Vitol</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">00002</td><td>Bearing</td><td><span class="cell-badge">BRSSZZFH28KN</span></td><td>Bearing ZZ 6202HS C3FH28KN</td><td>Stainless</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">00096</td><td>Brush</td><td><span class="cell-badge">BDBNY2.8"</span></td><td>Beading Brush Nylon 2.8"</td><td>Nylon</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">00097</td><td>Brush</td><td><span class="cell-badge">BDBPBT3"</span></td><td>Beading Brush PBT 3"</td><td>PBT</td><td><span class="status-pass">Active</span></td></tr>
+                        <tbody id="product-tbody">
+                            <!-- Data loaded dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -76,10 +73,14 @@
     </div>
     
     <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-product');
-            document.getElementById('update-time').textContent = DateUtil.getCurrentTime();
+            const products = DataService.getProducts();
+            const tbody = document.getElementById('product-tbody');
+            TableRenderer.renderProducts(products, tbody);
+            document.querySelector('.table-footer').innerHTML = `Showing ${products.length} records • Total: ${products.length} records • Updated: ${DateUtil.getCurrentTime()}`;
         });
     </script>
 </body>

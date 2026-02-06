@@ -1,37 +1,13 @@
 /**
  * Incoming Inspection Page Logic
+ * Uses DataService for dynamic data loading
  */
 
-// Product data
-const PRODUCTS = {
-    Bearing: [
-        { id: '00001', group: 'Bearing', type: 'bearing', code: 'BRVTZFH28KN', name: 'Bearing VTZ 6202HS C3FH28KN', material: 'Vitol' },
-        { id: '00002', group: 'Bearing', type: 'bearing', code: 'BRSSZZFH28KN', name: 'Bearing ZZ 6202HS C3FH28KN', material: 'Stainless' },
-        { id: '00136', group: 'Bearing', type: 'bearing', code: 'BRVTZHG41050', name: 'Bearing 6202VRSNZ PA46 C3HG410-50', material: 'Vitol' },
-        { id: '00137', group: 'Bearing', type: 'bearing', code: 'BRSSZZHG41050', name: 'Bearing 6202ZZ PA46 C3HG410-50', material: 'Stainless' }
-    ],
-    Brush: [
-        { id: '00096', group: 'Brush', type: 'Beading Brush', code: 'BDBNY2.8"T0.25MMG50', name: 'Beading Brush Nylon 2.8"', material: 'Nylon' },
-        { id: '00097', group: 'Brush', type: 'Beading Brush', code: 'BDBPBT3"T0.30MMG50', name: 'Beading Brush PBT 3"', material: 'PBT' },
-        { id: '00098', group: 'Brush', type: 'Beading Brush', code: 'BDBNY2.8"T0.20MMG50', name: 'Beading Brush Nylon 2.8"', material: 'Nylon' }
-    ]
-};
-
-// Dimension specs by product type
-const DIMENSION_SPECS = {
-    Bearing: [
-        { category: 'Thickness(mm)', low: 10.0, high: 11.1 },
-        { category: 'Diameter Outside(mm)', low: 34.85, high: 35.15 },
-        { category: 'Diameter Inside(mm)', low: 14.9, high: 15.1 }
-    ],
-    Brush: [
-        { category: 'Thickness (mm)', low: 0.27, high: 0.33 },
-        { category: 'Diameter Outside (mm)', low: 48, high: 50.5 },
-        { category: 'Diameter Inside (mm)', low: 24.75, high: 25.85 },
-        { category: 'Monofilament Length (mm)', low: 0, high: 0 },
-        { category: 'Overall Length (mm)', low: 69.5, high: 73 }
-    ]
-};
+// Data cache - loaded from JSON
+let PRODUCTS = {};
+let DIMENSION_SPECS = {};
+let HEATING_CRITERIA = [];
+let EVAPORATION_ROWS = [];
 
 // State
 let selectedProduct = null;
@@ -41,10 +17,65 @@ let testResults = { heating: 'na', evaporation: 'na' };
 // Initialize page
 function initIncomingPage() {
     initNavigation('nav-incoming');
+    loadData();
+    loadInspectionRecords();
     initModals();
     initFilters();
     initDispositionToggle();
     setDefaultDates();
+}
+
+// Load data from DataService
+function loadData() {
+    PRODUCTS = DataService.getProductsByGroup();
+    DIMENSION_SPECS = DataService.getDimensionSpecs();
+    HEATING_CRITERIA = DataService.getHeatingTestCriteria();
+    EVAPORATION_ROWS = DataService.getEvaporationTestRows();
+    
+    // Load suppliers for dropdown
+    const suppliers = DataService.getSuppliers();
+    const supplierSelect = document.getElementById('supplier-name');
+    if (supplierSelect) {
+        supplierSelect.innerHTML = '<option value="">Select</option>' + 
+            suppliers.map(s => `<option value="${s.code}">${s.code}</option>`).join('');
+    }
+    
+    // Load factories
+    const factories = DataService.getFactories();
+    const factorySelect = document.getElementById('factory');
+    if (factorySelect) {
+        factorySelect.innerHTML = '<option value="">Select</option>' + 
+            factories.map(f => `<option value="${f}">${f}</option>`).join('');
+    }
+    
+    // Load inspection courts
+    const courts = DataService.getInspectionCourts();
+    const courtSelect = document.getElementById('inspection-court');
+    if (courtSelect) {
+        courtSelect.innerHTML = '<option value="">Select</option>' + 
+            courts.map(c => `<option value="${c}">${c}</option>`).join('');
+    }
+}
+
+// Load inspection records into table
+function loadInspectionRecords() {
+    const inspections = DataService.getIncomingInspections();
+    const tbody = document.querySelector('.data-table tbody');
+    if (tbody && inspections.length > 0) {
+        TableRenderer.renderIncomingInspections(inspections, tbody);
+        document.querySelector('.table-footer').innerHTML = 
+            `Showing ${inspections.length} records • Total: ${inspections.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+    }
+}
+
+// Format date from YYYY-MM-DD to DD-MM-YY
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+        return `${parts[2]}-${parts[1]}-${parts[0].slice(2)}`;
+    }
+    return dateStr;
 }
 
 // Modal initialization
@@ -216,7 +247,7 @@ function updateRowDisposition(row) {
 // Initialize heating test table
 function initHeatingTable() {
     const tbody = document.getElementById('heating-tbody');
-    const criteria = ['Vitol/Steel Condition', 'Grease Condition', 'Rotation Smoothness'];
+    const criteria = HEATING_CRITERIA.length > 0 ? HEATING_CRITERIA : ['Vitol/Steel Condition', 'Grease Condition', 'Rotation Smoothness'];
     
     tbody.innerHTML = criteria.map(c => `
         <tr>
@@ -273,7 +304,7 @@ function updateHeatingResult() {
 // Initialize evaporation test table
 function initEvaporationTable() {
     const tbody = document.getElementById('evaporation-tbody');
-    const rows = ['W1 (g)', 'W2 (g)', 'Evaporation %'];
+    const rows = EVAPORATION_ROWS.length > 0 ? EVAPORATION_ROWS : ['W1 (g)', 'W2 (g)', 'Evaporation %'];
     
     tbody.innerHTML = rows.map((row, idx) => `
         <tr>

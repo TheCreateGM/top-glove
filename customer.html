@@ -58,10 +58,8 @@
                                 <th style="width:80px">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr><td class="cell-id">C001</td><td>Customer A</td><td>John Doe</td><td>+60-123456789</td><td>john@customera.com</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">C002</td><td>Customer B</td><td>Jane Smith</td><td>+60-987654321</td><td>jane@customerb.com</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">C003</td><td>Customer C</td><td>Bob Wilson</td><td>+60-555666777</td><td>bob@customerc.com</td><td><span class="status-pass">Active</span></td></tr>
+                        <tbody id="customer-tbody">
+                            <!-- Data loaded dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -71,10 +69,14 @@
     </div>
     
     <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-customer');
-            document.getElementById('update-time').textContent = DateUtil.getCurrentTime();
+            const customers = DataService.getCustomers();
+            const tbody = document.getElementById('customer-tbody');
+            TableRenderer.renderCustomers(customers, tbody);
+            document.querySelector('.table-footer').innerHTML = `Showing ${customers.length} records • Total: ${customers.length} records • Updated: ${DateUtil.getCurrentTime()}`;
         });
     </script>
 </body>

@@ -1,0 +1,61 @@
+{
+  "defectTypes": [
+    {
+      "id": "D001",
+      "name": "Calar",
+      "category": "Minor",
+      "description": "Surface scratch on product",
+      "status": "Active"
+    },
+    {
+      "id": "D002",
+      "name": "Kemek",
+      "category": "Minor",
+      "description": "Minor dent on surface",
+      "status": "Active"
+    },
+    {
+      "id": "D003",
+      "name": "Crack",
+      "category": "Major",
+      "description": "Structural crack in material",
+      "status": "Active"
+    },
+    {
+      "id": "D004",
+      "name": "Scratch",
+      "category": "Minor",
+      "description": "Visible scratch marks",
+      "status": "Active"
+    },
+    {
+      "id": "D005",
+      "name": "Dent",
+      "category": "Major",
+      "description": "Deep dent affecting function",
+      "status": "Active"
+    },
+    {
+      "id": "D006",
+      "name": "Rust",
+      "category": "Major",
+      "description": "Corrosion on metal surface",
+      "status": "Active"
+    },
+    {
+      "id": "D007",
+      "name": "Discoloration",
+      "category": "Minor",
+      "description": "Color variation from standard",
+      "status": "Active"
+    },
+    {
+      "id": "D008",
+      "name": "Contamination",
+      "category": "Major",
+      "description": "Foreign particles present",
+      "status": "Active"
+    }
+  ],
+  "categories": ["Minor", "Major"]
+}

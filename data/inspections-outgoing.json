@@ -1,0 +1,43 @@
+{
+  "inspections": [
+    {
+      "id": "OUT000001",
+      "shipDate": "2026-01-30",
+      "productCode": "BRG-2401-SS",
+      "productType": "Bearing",
+      "customer": "Customer A",
+      "customerId": "C001",
+      "quantity": 5000,
+      "poNumber": "CPO-2601001",
+      "status": "PASS",
+      "inspectedBy": { "name": "Ali Ahmad", "position": "QA Inspector", "date": "2026-01-30" },
+      "remark": ""
+    },
+    {
+      "id": "OUT000002",
+      "shipDate": "2026-01-29",
+      "productCode": "BRH-002-NYL",
+      "productType": "Brush",
+      "customer": "Customer B",
+      "customerId": "C002",
+      "quantity": 3000,
+      "poNumber": "CPO-2601002",
+      "status": "PASS",
+      "inspectedBy": { "name": "Kumar Rajan", "position": "QA Inspector", "date": "2026-01-29" },
+      "remark": ""
+    },
+    {
+      "id": "OUT000003",
+      "shipDate": "2026-01-28",
+      "productCode": "BRG-3510-AL",
+      "productType": "Bearing",
+      "customer": "Customer C",
+      "customerId": "C003",
+      "quantity": 8000,
+      "poNumber": "CPO-2601003",
+      "status": "PASS",
+      "inspectedBy": { "name": "Ali Ahmad", "position": "QA Inspector", "date": "2026-01-28" },
+      "remark": ""
+    }
+  ]
+}

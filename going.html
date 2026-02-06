@@ -59,10 +59,8 @@
                                 <th style="width:70px">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr><td class="cell-id">OUT000001</td><td>30-01-26</td><td><span class="cell-badge">BRG-2401-SS</span></td><td>Bearing</td><td>Customer A</td><td>5,000</td><td><span class="status-pass">PASS</span></td></tr>
-                            <tr><td class="cell-id">OUT000002</td><td>29-01-26</td><td><span class="cell-badge">BRH-002-NYL</span></td><td>Brush</td><td>Customer B</td><td>3,000</td><td><span class="status-pass">PASS</span></td></tr>
-                            <tr><td class="cell-id">OUT000003</td><td>28-01-26</td><td><span class="cell-badge">BRG-3510-AL</span></td><td>Bearing</td><td>Customer C</td><td>8,000</td><td><span class="status-pass">PASS</span></td></tr>
+                        <tbody id="outgoing-tbody">
+                            <!-- Data loaded dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -72,11 +70,15 @@
     </div>
     
     <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-outgoing');
             document.getElementById('ship-date').value = DateUtil.today();
-            document.getElementById('update-time').textContent = DateUtil.getCurrentTime();
+            const inspections = DataService.getOutgoingInspections();
+            const tbody = document.getElementById('outgoing-tbody');
+            TableRenderer.renderOutgoingInspections(inspections, tbody);
+            document.querySelector('.table-footer').innerHTML = `Showing ${inspections.length} records • Total: ${inspections.length} records • Updated: ${DateUtil.getCurrentTime()}`;
         });
     </script>
 </body>

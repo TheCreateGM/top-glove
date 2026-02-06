@@ -1,0 +1,98 @@
+{
+  "products": [
+    {
+      "id": "00001",
+      "group": "Bearing",
+      "type": "bearing",
+      "code": "BRVTZFH28KN",
+      "name": "Bearing VTZ 6202HS C3FH28KN",
+      "material": "Vitol",
+      "classification": "6202HS C3FH28KN",
+      "status": "Active"
+    },
+    {
+      "id": "00002",
+      "group": "Bearing",
+      "type": "bearing",
+      "code": "BRSSZZFH28KN",
+      "name": "Bearing ZZ 6202HS C3FH28KN",
+      "material": "Stainless",
+      "classification": "6202HS C3FH28KN",
+      "status": "Active"
+    },
+    {
+      "id": "00136",
+      "group": "Bearing",
+      "type": "bearing",
+      "code": "BRVTZHG41050",
+      "name": "Bearing 6202VRSNZ PA46 C3HG410-50",
+      "material": "Vitol",
+      "classification": "6202VRSNZ PA46 C3HG410-50",
+      "status": "Active"
+    },
+    {
+      "id": "00137",
+      "group": "Bearing",
+      "type": "bearing",
+      "code": "BRSSZZHG41050",
+      "name": "Bearing 6202ZZ PA46 C3HG410-50",
+      "material": "Stainless",
+      "classification": "6202ZZ PA46 C3HG410-50",
+      "status": "Active"
+    },
+    {
+      "id": "00096",
+      "group": "Brush",
+      "type": "Beading Brush",
+      "code": "BDBNY2.8\"T0.25MMG50",
+      "name": "Beading Brush Nylon 2.8\" Gear/Star 50MM 0.25MM",
+      "material": "Nylon",
+      "classification": "Gear/Star 2.8\" 50MM 0.25MM",
+      "status": "Active"
+    },
+    {
+      "id": "00097",
+      "group": "Brush",
+      "type": "Beading Brush",
+      "code": "BDBPBT3\"T0.30MMG50",
+      "name": "Beading Brush PBT 3\" Gear/Star 50MM 0.3MM",
+      "material": "PBT",
+      "classification": "Gear/Star 3\" 50MM 0.3MM",
+      "status": "Active"
+    },
+    {
+      "id": "00098",
+      "group": "Brush",
+      "type": "Beading Brush",
+      "code": "BDBNY2.8\"T0.20MMG50",
+      "name": "Beading Brush Nylon 2.8\" Gear/Star 50MM 0.20MM",
+      "material": "Nylon",
+      "classification": "Gear/Star 2.8\" 50MM 0.20MM",
+      "status": "Active"
+    }
+  ],
+  "dimensionSpecs": {
+    "Bearing": [
+      { "category": "Thickness(mm)", "low": 10.0, "high": 11.1 },
+      { "category": "Diameter Outside(mm)", "low": 34.85, "high": 35.15 },
+      { "category": "Diameter Inside(mm)", "low": 14.9, "high": 15.1 }
+    ],
+    "Brush": [
+      { "category": "Thickness (mm)", "low": 0.27, "high": 0.33 },
+      { "category": "Diameter Outside (mm)", "low": 48, "high": 50.5 },
+      { "category": "Diameter Inside (mm)", "low": 24.75, "high": 25.85 },
+      { "category": "Monofilament Length (mm)", "low": 0, "high": 0 },
+      { "category": "Overall Length (mm)", "low": 69.5, "high": 73 }
+    ]
+  },
+  "heatingTestCriteria": [
+    "Vitol/Steel Condition",
+    "Grease Condition",
+    "Rotation Smoothness"
+  ],
+  "evaporationTestRows": [
+    "W1 (g)",
+    "W2 (g)",
+    "Evaporation %"
+  ]
+}

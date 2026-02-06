@@ -1,0 +1,49 @@
+{
+  "customers": [
+    {
+      "id": "C001",
+      "name": "Customer A",
+      "picName": "John Doe",
+      "phone": "+60-123456789",
+      "email": "john@customera.com",
+      "address": "123 Industrial Park, Shah Alam",
+      "status": "Active"
+    },
+    {
+      "id": "C002",
+      "name": "Customer B",
+      "picName": "Jane Smith",
+      "phone": "+60-987654321",
+      "email": "jane@customerb.com",
+      "address": "456 Tech Zone, Penang",
+      "status": "Active"
+    },
+    {
+      "id": "C003",
+      "name": "Customer C",
+      "picName": "Bob Wilson",
+      "phone": "+60-555666777",
+      "email": "bob@customerc.com",
+      "address": "789 Manufacturing Hub, Johor",
+      "status": "Active"
+    },
+    {
+      "id": "C004",
+      "name": "Precision Ltd",
+      "picName": "Ahmad Hassan",
+      "phone": "+60-111222333",
+      "email": "ahmad@precisionltd.com",
+      "address": "321 Bearing Street, Klang",
+      "status": "Active"
+    },
+    {
+      "id": "C005",
+      "name": "BrushMaster",
+      "picName": "Lee Wei Ming",
+      "phone": "+60-444555666",
+      "email": "lee@brushmaster.com",
+      "address": "654 Brush Avenue, Ipoh",
+      "status": "Active"
+    }
+  ]
+}

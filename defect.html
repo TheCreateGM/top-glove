@@ -61,12 +61,8 @@
                                 <th style="width:80px">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr><td class="cell-id">D001</td><td>Calar</td><td>Minor</td><td>Surface scratch on product</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">D002</td><td>Kemek</td><td>Minor</td><td>Minor dent on surface</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">D003</td><td>Crack</td><td>Major</td><td>Structural crack in material</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">D004</td><td>Scratch</td><td>Minor</td><td>Visible scratch marks</td><td><span class="status-pass">Active</span></td></tr>
-                            <tr><td class="cell-id">D005</td><td>Dent</td><td>Major</td><td>Deep dent affecting function</td><td><span class="status-pass">Active</span></td></tr>
+                        <tbody id="defect-tbody">
+                            <!-- Data loaded dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -76,10 +72,14 @@
     </div>
     
     <script src="js/main.js"></script>
+    <script src="js/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-defect');
-            document.getElementById('update-time').textContent = DateUtil.getCurrentTime();
+            const defects = DataService.getDefects();
+            const tbody = document.getElementById('defect-tbody');
+            TableRenderer.renderDefects(defects, tbody);
+            document.querySelector('.table-footer').innerHTML = `Showing ${defects.length} records • Total: ${defects.length} records • Updated: ${DateUtil.getCurrentTime()}`;
         });
     </script>
 </body>
