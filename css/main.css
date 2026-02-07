@@ -59,10 +59,14 @@ body {
 .header-left { display: flex; align-items: center; gap: 15px; }
 
 .logo {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
 }
 
 .system-name {
@@ -515,6 +519,6 @@ input:checked + .toggle-slider:before { transform: translateX(26px); }
 @media (max-width: 480px) {
     .header { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px; }
     .header-left { width: 100%; justify-content: space-between; }
-    .logo { font-size: 18px; }
+.logo img { height: 28px; }
     .system-name { font-size: 11px; }
 }
