@@ -37,8 +37,35 @@
                 <div class="filter-section">
                     <div class="filter-row">
                         <div class="filter-group">
-                            <label class="filter-label">Ship Date</label>
-                            <input type="date" class="filter-input" id="ship-date">
+                            <label class="filter-label">Inspection Date</label>
+                            <input type="date" class="filter-input" id="inspection-date">
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Product Type</label>
+                            <select class="filter-input" id="product-type">
+                                <option value="">All</option>
+                                <option value="bearing">Bearing</option>
+                                <option value="brush">Brush</option>
+                                <option value="brush core">Brush Core</option>
+                                <option value="bush">Bush</option>
+                                <option value="circlip">Circlip</option>
+                                <option value="disc">Disc</option>
+                                <option value="disc brush">Disc Brush</option>
+                                <option value="gasket">Gasket</option>
+                                <option value="gripper knife">Gripper Knife</option>
+                                <option value="l arm">L Arm</option>
+                                <option value="l arm housing">L Arm Housing</option>
+                                <option value="monofilament">Monofilament</option>
+                                <option value="pin shaft">Pin Shaft</option>
+                                <option value="raw material">Raw Material</option>
+                                <option value="recond former holder">Recond Former Holder</option>
+                                <option value="spacer">Spacer</option>
+                                <option value="spring(holder)">Spring(Holder)</option>
+                                <option value="spring(rasm)">Spring(RASM)</option>
+                                <option value="spring cap">Spring Cap</option>
+                                <option value="spring hook rasm">Spring Hook RASM</option>
+                                <option value="wire">Wire</option>
+                            </select>
                         </div>
                         <div class="btn-group">
                             <button class="btn-small" id="view-all-btn"><i class="fas fa-eye"></i><span>View All</span></button>
@@ -50,21 +77,22 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th style="width:80px">ID</th>
-                                <th style="width:80px">Ship Date</th>
-                                <th style="width:100px">Product Code</th>
-                                <th style="width:90px">Product Type</th>
-                                <th style="width:100px">Customer</th>
-                                <th style="width:70px">Qty</th>
-                                <th style="width:70px">Status</th>
+                                <th style="width:90px">ID</th>
+                                <th style="width:120px">Product Name</th>
+                                <th style="width:70px">Mode</th>
+                                <th style="width:70px">Factory</th>
+                                <th style="width:80px">Inspection Date</th>
+                                <th style="width:100px">Product Type</th>
+                                <th style="width:80px">Product Color</th>
+                                <th style="width:90px">Product Code</th>
+                                <th style="width:80px">Batch No</th>
+                                <th style="width:70px">Lot Count</th>
                             </tr>
                         </thead>
-                        <tbody id="outgoing-tbody">
-                            <!-- Data loaded dynamically -->
-                        </tbody>
+                        <tbody id="outgoing-tbody"></tbody>
                     </table>
                 </div>
-                <div class="table-footer">Showing 3 records • Total: 3 records • Updated: <span id="update-time"></span></div>
+                <div class="table-footer">Showing 10 records • Total: 10 records • Updated: <span id="update-time"></span></div>
             </div>
         </div>
     </div>
@@ -74,11 +102,37 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-outgoing');
-            document.getElementById('ship-date').value = DateUtil.today();
+            document.getElementById('inspection-date').value = DateUtil.today();
             const inspections = DataService.getOutgoingInspections();
             const tbody = document.getElementById('outgoing-tbody');
             TableRenderer.renderOutgoingInspections(inspections, tbody);
-            document.querySelector('.table-footer').innerHTML = `Showing ${inspections.length} records • Total: ${inspections.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            const footer = document.querySelector('.table-footer');
+            footer.innerHTML = `Showing ${inspections.length} records • Total: ${inspections.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            
+            // Filter functionality
+            const productType = document.getElementById('product-type');
+            const inspectionDate = document.getElementById('inspection-date');
+            const viewAllBtn = document.getElementById('view-all-btn');
+            const rows = tbody.querySelectorAll('tr');
+            
+            function filterTable() {
+                const typeVal = productType.value.toLowerCase();
+                let count = 0;
+                rows.forEach(row => {
+                    const type = row.cells[5]?.textContent.toLowerCase() || '';
+                    const show = !typeVal || type === typeVal;
+                    row.style.display = show ? '' : 'none';
+                    if (show) count++;
+                });
+                footer.innerHTML = `Showing ${count} records • Total: ${inspections.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            }
+            
+            productType.addEventListener('change', filterTable);
+            viewAllBtn.addEventListener('click', () => {
+                productType.value = '';
+                inspectionDate.value = DateUtil.today();
+                filterTable();
+            });
         });
     </script>
 </body>

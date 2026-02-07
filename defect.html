@@ -6,6 +6,18 @@
     <title>TOP GLOVE - Defect List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        .image-container { width: 40px; height: 40px; background: var(--gray-100); border: 1px dashed var(--gray-400); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin: 0 auto; cursor: pointer; transition: var(--transition); }
+        .image-container:hover { border-color: var(--secondary); background: #f0f8ff; }
+        .image-container i { font-size: 14px; color: var(--gray-500); }
+        .defect-matrix th, .defect-matrix td { text-align: center; padding: 8px 3px; }
+        .defect-matrix th { font-size: 10px; }
+        .defect-matrix td { font-size: 11px; }
+        .defect-name-cell { text-align: left !important; padding-left: 8px !important; }
+        .defect-id { font-weight: 600; color: var(--primary); text-align: left !important; padding-left: 8px !important; }
+        .description-cell { text-align: left !important; padding-left: 8px !important; max-width: 150px; }
+        .category-cell { font-size: 10px; font-weight: 500; }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -31,42 +43,40 @@
             <div class="content-container">
                 <div class="filter-header">
                     <h2 class="page-title"><i class="fas fa-exclamation-triangle"></i><span>Defect List</span></h2>
-                    <button class="btn-primary"><i class="fas fa-plus"></i><span>Add Defect</span></button>
-                </div>
-                
-                <div class="filter-section">
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label class="filter-label">Category</label>
-                            <select class="filter-input" id="defect-category">
-                                <option value="">All</option>
-                                <option value="minor">Minor</option>
-                                <option value="major">Major</option>
-                            </select>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn-small" id="view-all-btn"><i class="fas fa-eye"></i><span>View All</span></button>
-                        </div>
-                    </div>
+                    <button class="btn-primary"><i class="fas fa-plus"></i><span>New Defect</span></button>
                 </div>
                 
                 <div class="table-container">
-                    <table class="data-table">
+                    <table class="data-table defect-matrix">
                         <thead>
                             <tr>
-                                <th style="width:60px">ID</th>
-                                <th style="width:100px">Defect Name</th>
-                                <th style="width:80px">Category</th>
-                                <th style="width:200px">Description</th>
-                                <th style="width:80px">Status</th>
+                                <th style="width:50px">ID</th>
+                                <th style="width:120px">Defect Name</th>
+                                <th style="width:50px">Image</th>
+                                <th style="width:50px">ABBV</th>
+                                <th style="width:150px">Description</th>
+                                <th style="width:40px">BrC</th>
+                                <th style="width:40px">Bru</th>
+                                <th style="width:40px">B&S</th>
+                                <th style="width:40px">Bea</th>
+                                <th style="width:40px">Cir</th>
+                                <th style="width:40px">Dis</th>
+                                <th style="width:40px">Gas</th>
+                                <th style="width:40px">Grk</th>
+                                <th style="width:40px">L-A</th>
+                                <th style="width:40px">L-H</th>
+                                <th style="width:40px">Mon</th>
+                                <th style="width:40px">Pin</th>
+                                <th style="width:40px">Raw</th>
+                                <th style="width:40px">Spr</th>
+                                <th style="width:40px">SpC</th>
+                                <th style="width:40px">Wir</th>
                             </tr>
                         </thead>
-                        <tbody id="defect-tbody">
-                            <!-- Data loaded dynamically -->
-                        </tbody>
+                        <tbody id="defect-tbody"></tbody>
                     </table>
                 </div>
-                <div class="table-footer">Showing 5 records • Total: 5 records • Updated: <span id="update-time"></span></div>
+                <div class="table-footer">Showing 10 records • Total: 10 records • Updated: <span id="update-time"></span></div>
             </div>
         </div>
     </div>
@@ -76,10 +86,53 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-defect');
-            const defects = DataService.getDefects();
             const tbody = document.getElementById('defect-tbody');
-            TableRenderer.renderDefects(defects, tbody);
-            document.querySelector('.table-footer').innerHTML = `Showing ${defects.length} records • Total: ${defects.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            const footer = document.querySelector('.table-footer');
+            
+            // Defect matrix data
+            const defects = [
+                { id: 1, name: "Hole/Puncture", abbv: "HP", desc: "Small holes or punctures in material", cats: [1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0] },
+                { id: 2, name: "Tear/Rip", abbv: "TR", desc: "Material tears or rips", cats: [1,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0] },
+                { id: 3, name: "Thickness Variation", abbv: "TV", desc: "Uneven thickness in product", cats: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+                { id: 4, name: "Discoloration", abbv: "DC", desc: "Color variations or stains", cats: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+                { id: 5, name: "Powder Clumping", abbv: "PC", desc: "Powder accumulation in clumps", cats: [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] },
+                { id: 6, name: "Seam Weakness", abbv: "SW", desc: "Weak or broken seams", cats: [1,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0] },
+                { id: 7, name: "Size Mismatch", abbv: "SM", desc: "Incorrect product dimensions", cats: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+                { id: 8, name: "Foreign Particles", abbv: "FP", desc: "Foreign materials embedded", cats: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+                { id: 9, name: "Surface Scratch", abbv: "SS", desc: "Scratches on surface", cats: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] },
+                { id: 10, name: "Deformation", abbv: "DF", desc: "Product shape deformation", cats: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1] }
+            ];
+            
+            function renderTable() {
+                tbody.innerHTML = defects.map(d => `
+                    <tr>
+                        <td class="defect-id">${d.id}</td>
+                        <td class="defect-name-cell"><i class="fas fa-edit" style="color:var(--secondary);cursor:pointer;margin-right:5px;" title="Edit Defect"></i><span style="font-weight:500;">${d.name}</span></td>
+                        <td><div class="image-container"><i class="fas fa-image"></i></div></td>
+                        <td class="category-cell">${d.abbv}</td>
+                        <td class="description-cell">${d.desc}</td>
+                        ${d.cats.map(c => `<td>${c ? '✓' : ''}</td>`).join('')}
+                    </tr>
+                `).join('');
+                footer.innerHTML = `Showing ${defects.length} records • Total: ${defects.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            }
+            
+            renderTable();
+            
+            // Edit icon click
+            tbody.addEventListener('click', (e) => {
+                if (e.target.classList.contains('fa-edit')) {
+                    const row = e.target.closest('tr');
+                    const id = row.querySelector('.defect-id').textContent;
+                    const name = row.querySelector('.defect-name-cell span').textContent;
+                    alert(`Editing defect: ${name} (ID: ${id})`);
+                }
+                if (e.target.closest('.image-container')) {
+                    const row = e.target.closest('tr');
+                    const name = row.querySelector('.defect-name-cell span').textContent;
+                    alert(`Upload image for defect: ${name}`);
+                }
+            });
         });
     </script>
 </body>

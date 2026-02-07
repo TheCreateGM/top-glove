@@ -30,8 +30,8 @@
         <div class="content-area">
             <div class="content-container">
                 <div class="filter-header">
-                    <h2 class="page-title"><i class="fas fa-file-alt"></i><span>Product Specifications</span></h2>
-                    <button class="btn-primary"><i class="fas fa-plus"></i><span>Add Product</span></button>
+                    <h2 class="page-title"><i class="fas fa-file-alt"></i><span>Product Specification</span></h2>
+                    <button class="btn-primary"><i class="fas fa-plus"></i><span>New Product</span></button>
                 </div>
                 
                 <div class="filter-section">
@@ -42,6 +42,25 @@
                                 <option value="">All</option>
                                 <option value="bearing">Bearing</option>
                                 <option value="brush">Brush</option>
+                                <option value="brush core">Brush Core</option>
+                                <option value="bush">Bush</option>
+                                <option value="circlip">Circlip</option>
+                                <option value="disc">Disc</option>
+                                <option value="disc brush">Disc Brush</option>
+                                <option value="gasket">Gasket</option>
+                                <option value="gripper knife">Gripper Knife</option>
+                                <option value="l arm">L Arm</option>
+                                <option value="l arm housing">L Arm Housing</option>
+                                <option value="monofilament">Monofilament</option>
+                                <option value="pin shaft">Pin Shaft</option>
+                                <option value="raw material">Raw Material</option>
+                                <option value="recond former holder">Recond Former Holder</option>
+                                <option value="spacer">Spacer</option>
+                                <option value="spring(holder)">Spring(Holder)</option>
+                                <option value="spring(rasm)">Spring(RASM)</option>
+                                <option value="spring cap">Spring Cap</option>
+                                <option value="spring hook rasm">Spring Hook RASM</option>
+                                <option value="wire">Wire</option>
                             </select>
                         </div>
                         <div class="btn-group">
@@ -54,20 +73,20 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th style="width:60px">ID</th>
-                                <th style="width:80px">Group</th>
-                                <th style="width:100px">Product Code</th>
-                                <th style="width:200px">Description</th>
-                                <th style="width:80px">Material</th>
-                                <th style="width:80px">Status</th>
+                                <th style="width:50px">ID</th>
+                                <th style="width:120px">Product Name</th>
+                                <th style="width:90px">Category/Group</th>
+                                <th style="width:100px">Product Type</th>
+                                <th style="width:90px">Material</th>
+                                <th style="width:120px">Classification/Details</th>
+                                <th style="width:80px">Inspection</th>
+                                <th style="width:150px">Description</th>
                             </tr>
                         </thead>
-                        <tbody id="product-tbody">
-                            <!-- Data loaded dynamically -->
-                        </tbody>
+                        <tbody id="product-tbody"></tbody>
                     </table>
                 </div>
-                <div class="table-footer">Showing 4 records • Total: 4 records • Updated: <span id="update-time"></span></div>
+                <div class="table-footer">Showing 10 records • Total: 10 records • Updated: <span id="update-time"></span></div>
             </div>
         </div>
     </div>
@@ -77,10 +96,63 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initNavigation('nav-product');
-            const products = DataService.getProducts();
             const tbody = document.getElementById('product-tbody');
-            TableRenderer.renderProducts(products, tbody);
-            document.querySelector('.table-footer').innerHTML = `Showing ${products.length} records • Total: ${products.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            const footer = document.querySelector('.table-footer');
+            
+            // Product Specification data
+            const specProducts = [
+                { id: 1, name: "Bearing Assembly Unit", category: "Mechanical", type: "Bearing", material: "Stainless Steel", classification: "Precision Bearing", inspection: "Incoming", desc: "High precision bearing for industrial use" },
+                { id: 2, name: "Industrial Brush Head", category: "Cleaning", type: "Brush", material: "Nylon Bristles", classification: "Heavy Duty Brush", inspection: "Incoming", desc: "Industrial cleaning brush with nylon bristles" },
+                { id: 3, name: "Steel Bearing Set", category: "Mechanical", type: "Bearing", material: "Alloy Steel", classification: "Standard Bearing", inspection: "Incoming", desc: "Standard steel bearing for machinery" },
+                { id: 4, name: "Polyester Brush", category: "Cleaning", type: "Brush", material: "Polyester Fibers", classification: "Medium Duty", inspection: "Incoming", desc: "Polyester brush for general cleaning" },
+                { id: 5, name: "Ceramic Bearing Unit", category: "Mechanical", type: "Bearing", material: "Ceramic", classification: "High Speed Bearing", inspection: "Incoming", desc: "Ceramic bearing for high speed applications" },
+                { id: 6, name: "Steel Wire Brush", category: "Cleaning", type: "Brush", material: "Steel Wire", classification: "Heavy Duty Cleaning", inspection: "Incoming", desc: "Steel wire brush for tough cleaning tasks" },
+                { id: 7, name: "Stainless Bearing", category: "Mechanical", type: "Bearing", material: "304 Stainless", classification: "Corrosion Resistant", inspection: "Incoming", desc: "Stainless bearing for corrosive environments" },
+                { id: 8, name: "Nylon Brush Set", category: "Cleaning", type: "Brush", material: "Nylon", classification: "General Purpose", inspection: "Incoming", desc: "Nylon brush set for various cleaning needs" },
+                { id: 9, name: "Black Ceramic Bearing", category: "Mechanical", type: "Bearing", material: "Black Ceramic", classification: "Special Application", inspection: "Incoming", desc: "Black ceramic bearing for specialized use" },
+                { id: 10, name: "Polyester Brush Roll", category: "Cleaning", type: "Brush", material: "Blue Polyester", classification: "Roller Type", inspection: "Incoming", desc: "Blue polyester roller brush for surface cleaning" }
+            ];
+            
+            function renderTable(data) {
+                tbody.innerHTML = data.map(p => `
+                    <tr>
+                        <td style="font-weight:600;color:var(--primary);">${p.id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.category}</td>
+                        <td>${p.type}</td>
+                        <td>${p.material}</td>
+                        <td>${p.classification}</td>
+                        <td><span class="cell-badge" style="font-size:10px;padding:3px 8px;">${p.inspection}</span></td>
+                        <td><i class="fas fa-edit" style="color:var(--secondary);cursor:pointer;margin-right:5px;" title="Edit Product Specification"></i><span style="max-width:100px;overflow:hidden;text-overflow:ellipsis;display:inline-block;vertical-align:middle;">${p.desc}</span></td>
+                    </tr>
+                `).join('');
+                footer.innerHTML = `Showing ${data.length} records • Total: ${specProducts.length} records • Updated: ${DateUtil.getCurrentTime()}`;
+            }
+            
+            renderTable(specProducts);
+            
+            // Filter by product type
+            const productType = document.getElementById('product-type');
+            productType.addEventListener('change', () => {
+                const val = productType.value.toLowerCase();
+                const filtered = val ? specProducts.filter(p => p.type.toLowerCase() === val) : specProducts;
+                renderTable(filtered);
+            });
+            
+            document.getElementById('view-all-btn').addEventListener('click', () => {
+                productType.value = '';
+                renderTable(specProducts);
+            });
+            
+            // Edit icon click
+            tbody.addEventListener('click', (e) => {
+                if (e.target.classList.contains('fa-edit')) {
+                    const row = e.target.closest('tr');
+                    const id = row.cells[0].textContent;
+                    const name = row.cells[1].textContent;
+                    alert(`Editing product specification for ${name} (ID: ${id})`);
+                }
+            });
         });
     </script>
 </body>
