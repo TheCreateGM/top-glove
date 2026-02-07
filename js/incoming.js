@@ -187,37 +187,64 @@ function initInspectionTables(productGroup) {
 
 // Initialize dimension table
 function initDimensionTable(productGroup) {
+    const table = document.getElementById('dimension-table');
+    const thead = table?.querySelector('thead tr');
     const tbody = document.getElementById('dimension-tbody');
     const specs = DIMENSION_SPECS[productGroup] || [];
     
-    tbody.innerHTML = specs.map(spec => `
-        <tr>
-            <td>${spec.category}</td>
-            <td>
-                <div class="standard-box-container">
-                    <input type="number" class="standard-box" value="${spec.low || ''}" data-type="low">
-                    <input type="number" class="standard-box" value="${spec.high || ''}" data-type="high">
-                </div>
-            </td>
-            ${[1,2,3,4,5,6,7,8].map(i => `<td><input type="number" class="dimension-input" data-sample="${i}"></td>`).join('')}
-            <td class="disposition-cell"></td>
-        </tr>
-    `).join('');
+    // Update table header - Bearing has Remark column, others don't
+    if (thead) {
+        if (productGroup === 'Bearing') {
+            thead.innerHTML = '<th>Parameter</th><th>Standard Low/High</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>Disposition</th><th>Remark</th>';
+        } else {
+            thead.innerHTML = '<th>Parameter</th><th>Standard Low/High</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>Disposition</th>';
+        }
+    }
+    
+    // Build table rows - Bearing has Remark input, others don't
+    tbody.innerHTML = specs.map(spec => {
+        // Handle user-defined fields (low=0, high=0)
+        const lowVal = (spec.low === 0 && spec.high === 0) ? '' : spec.low;
+        const highVal = (spec.low === 0 && spec.high === 0) ? '' : spec.high;
+        const lowPlaceholder = (spec.low === 0 && spec.high === 0) ? 'Set low' : '';
+        const highPlaceholder = (spec.low === 0 && spec.high === 0) ? 'Set high' : '';
+        
+        let row = `
+            <tr>
+                <td>${spec.category}</td>
+                <td>
+                    <div class="standard-box-container">
+                        <input type="number" class="standard-box" value="${lowVal}" placeholder="${lowPlaceholder}" data-type="low">
+                        <input type="number" class="standard-box" value="${highVal}" placeholder="${highPlaceholder}" data-type="high">
+                    </div>
+                </td>
+                ${[1,2,3,4,5,6,7,8].map(i => `<td><input type="number" class="dimension-input" data-sample="${i}"></td>`).join('')}
+                <td class="disposition-cell"></td>`;
+        
+        // Add Remark column for Bearing only
+        if (productGroup === 'Bearing') {
+            row += `<td><input type="text" class="dimension-input" placeholder="Remark"></td>`;
+        }
+        
+        row += '</tr>';
+        return row;
+    }).join('');
     
     // Add input listeners for disposition calculation
-    tbody.querySelectorAll('input').forEach(input => {
+    tbody.querySelectorAll('input[type="number"]').forEach(input => {
         input.addEventListener('input', function() {
-            updateRowDisposition(this.closest('tr'));
+            updateRowDisposition(this.closest('tr'), productGroup);
         });
     });
 }
 
 // Update disposition for a row
-function updateRowDisposition(row) {
+function updateRowDisposition(row, productGroup) {
     const lowInput = row.querySelector('[data-type="low"]');
     const highInput = row.querySelector('[data-type="high"]');
-    const sampleInputs = row.querySelectorAll('.dimension-input');
+    const sampleInputs = row.querySelectorAll('.dimension-input[data-sample]');
     const dispCell = row.querySelector('.disposition-cell');
+    const category = row.querySelector('td:first-child')?.textContent || '';
     
     const low = parseFloat(lowInput?.value) || 0;
     const high = parseFloat(highInput?.value) || 0;
@@ -232,6 +259,27 @@ function updateRowDisposition(row) {
             if (val < low || val > high) allPass = false;
         }
     });
+    
+    // Special logic for user-defined fields (Pin Shaft, Spring (Holder))
+    if (productGroup === 'Pin Shaft' && category !== 'Diameter 1 (mm)') {
+        const lowVal = parseFloat(lowInput?.value);
+        const highVal = parseFloat(highInput?.value);
+        if (!hasValue && (isNaN(lowVal) || isNaN(highVal) || lowVal === 0 || highVal === 0)) {
+            dispCell.textContent = 'PASS';
+            dispCell.className = 'disposition-cell pass';
+            return;
+        }
+    }
+    
+    if (productGroup === 'Spring (Holder)' && (category === 'Height (mm)' || category === 'Coil')) {
+        const lowVal = parseFloat(lowInput?.value);
+        const highVal = parseFloat(highInput?.value);
+        if (!hasValue && (isNaN(lowVal) || isNaN(highVal) || lowVal === 0 || highVal === 0)) {
+            dispCell.textContent = 'PASS';
+            dispCell.className = 'disposition-cell pass';
+            return;
+        }
+    }
     
     if (!hasValue) {
         dispCell.textContent = '';

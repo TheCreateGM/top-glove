@@ -544,7 +544,7 @@ const DB_PRODUCTS = [
  */
 
 const DB_DIMENSION_SPECS = {
-    // Bearing Specifications
+    // Bearing Specifications (has Remark column)
     Bearing: [
         { category: "Thickness(mm)",         low: 10.0,  high: 11.1  },
         { category: "Diameter Outside(mm)",  low: 34.85, high: 35.15 },
@@ -553,100 +553,120 @@ const DB_DIMENSION_SPECS = {
 
     // Brush Specifications
     Brush: [
-        { category: "Thickness (mm)",          low: 0.27,  high: 0.33  },
-        { category: "Diameter Outside (mm)",   low: 48,    high: 50.5  },
-        { category: "Diameter Inside (mm)",    low: 24.75, high: 25.85 },
+        { category: "Thickness (mm)",           low: 0.27,  high: 0.33  },
+        { category: "Diameter Outside (mm)",    low: 48,    high: 50.5  },
+        { category: "Diameter Inside (mm)",     low: 24.75, high: 25.85 },
         { category: "Monofilament Length (mm)", low: 0,     high: 0     },
-        { category: "Overall Length (mm)",     low: 69.5,  high: 73    }
+        { category: "Overall Length (mm)",      low: 69.5,  high: 73    }
     ],
 
     // Brush Core Specifications
     "Brush Core": [
-        { category: "Diameter (mm)",  low: 49.5,  high: 50.5  },
-        { category: "Height (mm)",    low: 9.5,   high: 10.5  }
+        { category: "Diameter Outside (mm)", low: 77.5, high: 81.5  },
+        { category: "Diameter Inside (mm)",  low: 24.4, high: 27.5  },
+        { category: "Weight (g)",            low: 180,  high: 270   },
+        { category: "Height (mm)",           low: 49,   high: 54.5  }
     ],
 
     // Bush Specifications
     Bush: [
-        { category: "Outer Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Inner Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Length (mm)",          low: 0,  high: 0  }
+        { category: "Thickness (mm)",        low: 2,    high: 4    },
+        { category: "Diameter Outside (mm)", low: 16.8, high: 21.2 },
+        { category: "Diameter Inside (mm)",  low: 12,   high: 15   },
+        { category: "Height (mm)",           low: 38,   high: 42   }
     ],
 
     // Circlip Specifications
     Circlip: [
-        { category: "Diameter (mm)",   low: 0,  high: 0  },
-        { category: "Thickness (mm)",  low: 0,  high: 0  }
+        { category: "Thickness (mm)",    low: 0.9,  high: 1.1  },
+        { category: "Diameter Out (mm)", low: 16.8, high: 17.5 },
+        { category: "Diameter In (mm)",  low: 13.5, high: 13.9 },
+        { category: "Hole (mm)",         low: 1.5,  high: 1.9  },
+        { category: "Bore (mm)",         low: 2.1,  high: 2.3  }
     ],
 
     // Disc Specifications
     Disc: [
-        { category: "Diameter (mm)",   low: 0,  high: 0  },
-        { category: "Thickness (mm)",  low: 0,  high: 0  }
+        { category: "Thick 12-11",    low: 11, high: 12 },
+        { category: "Diameter 3",     low: 21, high: 22 },
+        { category: "Diameter 5",     low: 23, high: 24 },
+        { category: "Diameter 8",     low: 25, high: 26 },
+        { category: "Diameter 9",     low: 27, high: 28 },
+        { category: "Diameter 10",    low: 29, high: 30 },
+        { category: "Width 2 (mm)",   low: 31, high: 32 },
+        { category: "Width 4",        low: 33, high: 34 }
     ],
 
     // Gasket Specifications
     Gasket: [
-        { category: "Outer Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Inner Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Thickness (mm)",       low: 0,  high: 0  }
+        { category: "Thickness (mm)",        low: 3,  high: 4  },
+        { category: "Diameter Outside (mm)", low: 79, high: 81 },
+        { category: "Oval Length (mm)",      low: 48, high: 52 },
+        { category: "Oval Width (mm)",       low: 19, high: 21 }
     ],
 
     // L Arm Specifications
     "L Arm": [
-        { category: "Length (mm)",     low: 0,  high: 0  },
-        { category: "Width (mm)",      low: 0,  high: 0  },
-        { category: "Thickness (mm)",  low: 0,  high: 0  }
+        { category: "Diameter Outside",   low: 19.35, high: 19.55 },
+        { category: "Diameter Outside 2", low: 35.0,  high: 35.03 },
+        { category: "Weight (g)",         low: 280,   high: 999   },
+        { category: "Length (mm)",        low: 95.8,  high: 96.2  },
+        { category: "Length 2 (mm)",      low: 126.5, high: 132.2 }
     ],
 
     // L Arm Housing Specifications
     "L Arm Housing": [
-        { category: "Length (mm)",     low: 0,  high: 0  },
-        { category: "Width (mm)",      low: 0,  high: 0  },
-        { category: "Height (mm)",     low: 0,  high: 0  }
+        { category: "Diameter Outside",   low: 0.1,  high: 24.9  },
+        { category: "Diameter Outside 2", low: 0.1,  high: 10.1  },
+        { category: "Length",             low: 0.1,  high: 58    },
+        { category: "Diameter 3",         low: 0.02, high: 35.04 }
     ],
 
     // Monofilament Specifications
     Monofilament: [
-        { category: "Thickness (mm)",  low: 0,  high: 0  },
-        { category: "Length (m)",      low: 0,  high: 0  }
+        { category: "Thickness (mm)", low: 0.03, high: 0.7 }
     ],
 
     // Pin Shaft Specifications
     "Pin Shaft": [
-        { category: "Length (mm)",     low: 0,  high: 0  },
-        { category: "Diameter (mm)",   low: 0,  high: 0  }
+        { category: "Diameter 1 (mm)", low: 14.97, high: 15.3 },
+        { category: "Diameter 2 (mm)", low: 0,     high: 0    },
+        { category: "Length (mm)",     low: 0,     high: 0    },
+        { category: "Length 2 (mm)",   low: 0,     high: 0    },
+        { category: "Length 3 (mm)",   low: 0,     high: 0    },
+        { category: "Length 4 (mm)",   low: 0,     high: 0    }
     ],
 
     // Raw Material Specifications
     "Raw Material": [
-        { category: "Dimension (mm)",  low: 0,  high: 0  }
+        { category: "Dimension (mm)", low: 0, high: 0 }
     ],
 
     // Spacer Specifications
     Spacer: [
-        { category: "Outer Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Inner Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Thickness (mm)",       low: 0,  high: 0  }
+        { category: "Diameter Outside (mm)", low: 1.25, high: 18.25 },
+        { category: "Diameter Inside (mm)",  low: 3.25, high: 15.25 },
+        { category: "Length (mm)",           low: 0,    high: 0     }
     ],
 
     // Spring (Holder) Specifications
     "Spring (Holder)": [
-        { category: "Length (mm)",     low: 0,  high: 0  },
-        { category: "OD (mm)",         low: 0,  high: 0  },
-        { category: "Thickness (mm)",  low: 0,  high: 0  }
+        { category: "Thickness (mm)",        low: 0.1, high: 3  },
+        { category: "Diameter Outside (mm)", low: 1,   high: 26 },
+        { category: "Height (mm)",           low: 0,   high: 0  },
+        { category: "Coil",                  low: 0,   high: 0  }
     ],
 
     // Spring Cap Specifications
     "Spring Cap": [
-        { category: "Diameter (mm)",   low: 0,  high: 0  },
-        { category: "Height (mm)",     low: 0,  high: 0  }
+        { category: "Diameter (mm)", low: 0, high: 0 },
+        { category: "Height (mm)",   low: 0, high: 0 }
     ],
 
     // Wire Specifications
     Wire: [
-        { category: "Diameter (mm)",  low: 0,  high: 0  },
-        { category: "Length (m)",     low: 0,  high: 0  }
+        { category: "Diameter (mm)", low: 0, high: 0 },
+        { category: "Length (m)",    low: 0, high: 0 }
     ]
 };
 
