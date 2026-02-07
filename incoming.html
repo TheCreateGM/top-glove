@@ -122,6 +122,7 @@
                         <div class="form-group"><label class="form-label">Sampling Size</label><input type="number" class="form-control" id="sampling-size"></div>
                         <div class="form-group"><label class="form-label">Supplier Name</label><select class="form-control" id="supplier-name"><option value="">Select</option><option>HCI</option><option>HCE</option></select></div>
                         <div class="form-group"><label class="form-label">Type of Product</label><select class="form-control" id="product-type-select"><option value="">Select</option><option value="Bearing">Bearing</option><option value="Brush">Brush</option><option value="Brush Core">Brush Core</option><option value="Bush">Bush</option><option value="Circlip">Circlip</option><option value="Disc">Disc</option><option value="Gasket">Gasket</option><option value="L Arm">L Arm</option><option value="L Arm Housing">L Arm Housing</option><option value="Monofilament">Monofilament</option><option value="Pin Shaft">Pin Shaft</option><option value="Raw Material">Raw Material</option><option value="Spacer">Spacer</option><option value="Spring (Holder)">Spring (Holder)</option><option value="Spring Cap">Spring Cap</option><option value="Wire">Wire</option></select></div>
+                        <div class="form-group"><label class="form-label">Additional Info</label><input type="text" class="form-control" id="additional-info"></div>
                         <div class="form-group"><label class="form-label">Quantity Received</label><input type="number" class="form-control" id="quantity-received"></div>
                         <div class="form-group"><label class="form-label">Factory</label><select class="form-control" id="factory"><option value="">Select</option><option>F13</option><option>F12</option><option>F11</option></select></div>
                         <div class="form-group"><label class="form-label">PO Number</label><input type="text" class="form-control" id="po-number"></div>
@@ -187,7 +188,7 @@
                             <button class="result-btn pass">PASS</button>
                             <button class="result-btn fail">FAIL</button>
                         </div>
-                        <span class="method-text">(Standard: &lt;4%)</span>
+                        <span class="method-text">(Method: Heat at 200°C, 22 Hours) (Standard: &lt;4%)</span>
                     </div>
                 </div>
                 
@@ -257,7 +258,7 @@
             </div>
             <div class="modal-body">
                 <table class="product-select-table">
-                    <thead><tr><th>Type</th><th>Code</th><th>Material</th><th>Description</th></tr></thead>
+                    <thead><tr><th>Type_Prod</th><th>Title</th><th>Material</th><th>Classification</th><th>Description</th></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -279,11 +280,11 @@
                 <div class="defect-form-grid">
                     <div class="form-group">
                         <label class="form-label">Defect Name</label>
-                        <select class="form-control" id="defect-name"><option value="">Select</option><option>Calar</option><option>Kemek</option><option>Crack</option><option>Scratch</option><option>Dent</option></select>
+                        <select class="form-control" id="defect-name"><option value="">Select Defect</option><option value="Calar">Calar</option><option value="Kemek">Kemek</option><option value="Crack">Crack</option><option value="Scratch">Scratch</option><option value="Dent">Dent</option></select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Category</label>
-                        <select class="form-control" id="defect-category"><option value="">Select</option><option>Minor</option><option>Major</option></select>
+                        <select class="form-control" id="defect-category"><option value="">Select Category</option><option value="Minor">Minor</option><option value="Major">Major</option></select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Affected Quantity</label>
@@ -296,6 +297,7 @@
                     <div class="form-group">
                         <label class="form-label">Defect Picture</label>
                         <input type="file" class="form-control" id="defect-picture" accept="image/*">
+                        <small style="font-size:9px;color:#6c757d;">Upload defect image (optional)</small>
                     </div>
                 </div>
             </div>

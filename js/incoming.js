@@ -124,7 +124,8 @@ function openProductModal(productType) {
             <td>${p.type}</td>
             <td>${p.code}</td>
             <td>${p.material}</td>
-            <td>${p.name}</td>
+            <td>${p.classification || ''}</td>
+            <td>${p.description || p.name}</td>
         </tr>
     `).join('');
     
